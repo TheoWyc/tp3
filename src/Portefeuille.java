@@ -18,12 +18,16 @@ public class Portefeuille {
    * @param montantJetons
    * @return Vrai si la transaction a Ã©tÃ© effectuÃ©e, faux sinon.  
    */
-  public boolean transfertDevise (Portefeuille destination, double montantJetons){
-      /**
-           FONCTION Ã€ IMPLEMENTER
-	  **/
-      return false;
-  }
+  public boolean transfertDevise (Portefeuille destination, double montantJetons)
+{
+    if (this.monnaie.equals(destination.getMonnaie()) && this.montant >= montantJetons) 
+    {
+        this.montant -= montantJetons;
+        destination.montant += montantJetons;
+        return true;
+    }
+    return false;
+}
 
   /**
    * Cette fonction vous permet d'acheter des jetons de la 
@@ -32,12 +36,17 @@ public class Portefeuille {
    * @param montantEuros Valeur d'achat en euros 
    * @return true si le montant en euros est supÃ©rieur ou Ã©gal Ã  0 
    */
-  public boolean achatDevise (double montantEuros){
-	/**
-           FONCTION Ã€ IMPLEMENTER
-	**/
+  public boolean achatDevise (double montantEuros)
+  {
+    if (montantEuros >= 0) 
+    {
+        double jetons = montantEuros / this.monnaie.getValeurDeJeton();
+        this.montant += jetons;
+        return true;
+    }
     return false;
   }
+  
 
   /**
    * Valide si le proprietaire passÃ© en parametre est celui
@@ -70,7 +79,7 @@ public class Portefeuille {
       return montant;
   }
 
-  @Override
+  
   public String toString() {
       return String.format("%10s",proprietaire) + " : "
            + String.format("%10.1f", montant)   + " x " 
